@@ -1,0 +1,9 @@
+{
+  "n_impressions": 1466163,
+  "hashed_dim": 262144,
+  "base_ctr": 0.1566,
+  "auc": 0.6693,
+  "logloss": 0.4086,
+  "baseline_logloss": 0.434,
+  "logloss_reduction_vs_baseline": 0.0587
+}

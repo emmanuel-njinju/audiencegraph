@@ -73,9 +73,15 @@ This ships as an honest, runnable foundation, not vaporware.
 
 | Release | Scope | Status |
 |---|---|---|
-| **R1 — Identity Resolution Engine** | consent gate, det + prob matcher, graph resolution, ground-truth eval | **Runnable now** — `make all` |
-| R2 — Enrichment, Segmentation, Lookalikes | customer-360, K-means/GMM segments, ALS lookalike | Designed; in progress |
-| R3 — Campaign Optimizer + Dashboard + AWS | propensity, budget allocation, MAB, Plotly dashboard, EMR/Athena | Designed; in progress |
+| **R1 — Identity Resolution Engine** | consent gate, det + prob matcher, graph resolution, ground-truth eval | **Runnable** — `make identity` |
+| **R2 — Segmentation & Lookalikes** | K-means/GMM segments (ARI vs truth), ALS lookalike expansion | **Runnable** — `make segmentation lookalike` |
+| **R3 — Propensity, CTR & Bayesian Optimizer** | LR/GBT propensity, hashed CTR at scale, Bayesian A/B + Thompson bandit, results dashboard | **Runnable** — `make propensity ctr campaign results` |
+
+All six modules run end-to-end on synthetic data with ground-truth evaluation.
+See the **[results walkthrough](reports/RESULTS.md)** for the full story with
+one metric per step, and per-module JSON in [`reports/`](reports/). The
+remaining polish items (a customer-360 enrichment join, an interactive Plotly
+version of the dashboard, and a live EMR run) are noted in that doc.
 
 ---
 
@@ -182,7 +188,10 @@ audiencegraph/
 
 - **Graph:** `src/common/connected_components.py` — label-propagation connected components.
 - **Classification:** `src/identity/resolve.py::train_probabilistic_matcher` — MLlib logistic regression, AUC-evaluated.
-- **Clustering / Regression / Collaborative filtering / Bayesian:** Modules 2–6 (in progress; designs in the release table).
+- **Clustering:** `src/segmentation/segment.py` — K-means + GMM, silhouette selection, ARI vs truth.
+- **Collaborative filtering:** `src/lookalike/expand.py` — ALS implicit feedback, seed-to-scale expansion.
+- **Regression at scale:** `src/ctr/model.py` — hashed logistic regression on the full impression log.
+- **Bayesian:** `src/campaign/optimize.py` — Beta-Binomial A/B posteriors + Thompson-sampling bandit.
 - **Ground-truth evaluation:** `pairwise_prf` — pairwise P/R/F1 from co-occurrence counts (scales without pair explosion).
 
 ## Privacy-safe design

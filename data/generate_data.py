@@ -70,18 +70,21 @@ def make_people(rng: np.random.Generator, n_people: int) -> tuple[pd.DataFrame, 
     income = np.clip(rng.normal(0, 1, n_people), -3, 3)          # standardized
     recency = rng.exponential(1.0, n_people)                     # days since last seen
 
-    # True conversion propensity: a logistic function of a few latent drivers.
-    # Kept deliberately non-trivial (interaction + nonlinearity) so a linear
-    # model is decent but gradient boosting wins - which is the story module 3
-    # tells.
-    top_interest = interest.max(axis=1)
+    # True conversion propensity. Driven mainly by affinity to two high-intent
+    # categories (cat_00, cat_01) - i.e. by INTEREST, which the impression log
+    # reflects - so behavioral propensity (module 3) and ALS lookalike (module 5)
+    # have real signal to learn. A nonlinear AND-interaction (both interests
+    # high) is added so a linear model captures the main effect but gradient
+    # boosting wins on the interaction - the story module 3 tells. A first-party
+    # attribute (income) still helps, so attributes and behavior both matter.
+    hv0, hv1 = interest[:, 0], interest[:, 1]
+    both_high = ((hv0 > 0.15) & (hv1 > 0.15)).astype(float)   # nonlinear interaction
     z = (
-        -1.4
-        + 2.3 * top_interest
-        + 0.6 * income
-        - 0.015 * (age - 38)
-        - 0.25 * recency
-        + 0.9 * (interest[:, 0] * (income > 0.5))   # interaction term
+        -2.4
+        + 6.0 * (hv0 + hv1)         # strong interest signal (visible in behavior)
+        + 1.6 * both_high           # nonlinearity -> GBT > logistic
+        + 0.4 * income              # a first-party attribute still contributes
+        - 0.15 * recency
     )
     p_convert = 1.0 / (1.0 + np.exp(-z))
     converted = (rng.random(n_people) < p_convert).astype(int)

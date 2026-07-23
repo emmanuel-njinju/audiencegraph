@@ -1,0 +1,9 @@
+{
+  "n_people": 8414,
+  "base_conversion_rate": 0.2599,
+  "auc_logistic_regression": 0.7325,
+  "auc_gbt": 0.6924,
+  "gbt_auc_gain_over_lr": -0.0401,
+  "winner": "logistic_regression",
+  "n_features": 15
+}

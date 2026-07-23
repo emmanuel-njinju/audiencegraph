@@ -1,0 +1,62 @@
+{
+  "arms": 6,
+  "true_best_creative": "cr_4",
+  "true_best_rate": 0.0899,
+  "bayesian_identified_best": "cr_4",
+  "identified_best_correct": true,
+  "p_best_of_winner": 0.9997,
+  "posteriors": {
+    "cr_0": {
+      "posterior_mean": 0.0789,
+      "ci95": [
+        0.0726,
+        0.0855
+      ],
+      "p_best": 0.0003
+    },
+    "cr_1": {
+      "posterior_mean": 0.0626,
+      "ci95": [
+        0.0569,
+        0.0686
+      ],
+      "p_best": 0.0
+    },
+    "cr_2": {
+      "posterior_mean": 0.0573,
+      "ci95": [
+        0.0519,
+        0.063
+      ],
+      "p_best": 0.0
+    },
+    "cr_3": {
+      "posterior_mean": 0.027,
+      "ci95": [
+        0.0233,
+        0.031
+      ],
+      "p_best": 0.0
+    },
+    "cr_4": {
+      "posterior_mean": 0.0958,
+      "ci95": [
+        0.0888,
+        0.103
+      ],
+      "p_best": 0.9997
+    },
+    "cr_5": {
+      "posterior_mean": 0.0727,
+      "ci95": [
+        0.0666,
+        0.0791
+      ],
+      "p_best": 0.0
+    }
+  },
+  "thompson_regret": 213.0,
+  "uniform_ab_regret": 1000.7,
+  "regret_reduction_vs_uniform": 0.7872,
+  "thompson_share_to_best_arm": 0.7498
+}

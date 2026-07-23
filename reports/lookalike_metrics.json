@@ -1,0 +1,14 @@
+{
+  "n_users": 8414,
+  "n_seed_converters": 1093,
+  "n_heldout_converters": 1094,
+  "als_rank": 8,
+  "characteristic_items": [
+    "cat_01",
+    "cat_05"
+  ],
+  "expand_top_k": 1464,
+  "base_heldout_rate": 0.1494,
+  "lookalike_heldout_rate": 0.1844,
+  "lift": 1.234
+}
