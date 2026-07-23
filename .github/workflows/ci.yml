@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (required by Spark 4)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Unit tests
+        run: pytest -q
+
+      - name: End-to-end smoke (tiny universe → identity engine)
+        env:
+          PYSPARK_SUBMIT_ARGS: "--driver-memory 2g pyspark-shell"
+          PYTHONPATH: "."
+        run: |
+          python data/generate_data.py --people 800 --out data/synthetic --seed 7
+          python src/identity/resolve.py --data data/synthetic --out reports/ci_metrics.json
+          cat reports/ci_metrics.json

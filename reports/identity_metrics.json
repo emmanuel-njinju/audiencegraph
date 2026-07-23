@@ -1,0 +1,38 @@
+{
+  "consent": {
+    "total_people": 10000,
+    "allowed_people": 8414,
+    "retained_pct": 84.14,
+    "suppressed_gdpr_no_consent": 1003,
+    "suppressed_ccpa_opt_out": 583
+  },
+  "probabilistic_matcher": {
+    "auc": 0.9623,
+    "operating_threshold": 0.885,
+    "coef": [
+      18.192,
+      0.024
+    ],
+    "n_pairs": 39756
+  },
+  "resolution": {
+    "deterministic_only": {
+      "precision": 1.0,
+      "recall": 0.2524,
+      "f1": 0.4031
+    },
+    "deterministic_plus_probabilistic": {
+      "precision": 0.9144,
+      "recall": 0.4976,
+      "f1": 0.6445
+    },
+    "f1_lift_from_probabilistic": 0.2414
+  },
+  "counts": {
+    "devices_in_graph": 20941,
+    "true_persons": 8414,
+    "resolved_entities_full": 13653,
+    "deterministic_edges": 5294,
+    "probabilistic_edges": 4306
+  }
+}

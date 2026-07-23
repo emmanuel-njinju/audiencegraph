@@ -1,0 +1,11 @@
+# Pinned to the versions this project is developed and CI-tested against.
+# PySpark 4.0.x is used so the stack runs on Java 17/21 (Spark 3.x tops out at
+# Java 17); on an EMR cluster, pin to the EMR release's bundled Spark instead.
+pyspark==4.0.4
+numpy==2.0.2
+pandas==2.3.3
+scikit-learn==1.6.1
+scipy==1.13.1
+matplotlib==3.9.4
+pyarrow==21.0.0
+pytest==8.4.2
