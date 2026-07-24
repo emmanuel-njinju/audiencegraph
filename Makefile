@@ -10,7 +10,7 @@ export AG_DRIVER_MEM ?= 4g
 export PYSPARK_SUBMIT_ARGS ?= --driver-memory $(AG_DRIVER_MEM) pyspark-shell
 export PYTHONPATH := .
 
-.PHONY: setup data identity segmentation lookalike propensity ctr campaign results modules test clean all
+.PHONY: setup data identity segmentation lookalike propensity ctr campaign results dashboard modules test clean all
 
 setup:            ## create venv + install pinned deps
 	python3 -m venv .venv && $(PY) -m pip install -q --upgrade pip && $(PY) -m pip install -q -r requirements.txt
@@ -36,8 +36,11 @@ ctr:              ## R3 - CTR/conversion optimizer (regression at scale)
 campaign:         ## R3 - campaign optimizer (Bayesian A/B + bandit)
 	$(PY) src/campaign/optimize.py --data $(DATA) --out reports/campaign_metrics.json
 
-results:          ## build the results walkthrough (figure + RESULTS.md) from all metrics
-	$(PY) scripts/build_results.py && $(PY) scripts/update_docs_metrics.py
+results:          ## build the results walkthrough + HTML dashboard from all metrics
+	$(PY) scripts/build_results.py && $(PY) scripts/build_dashboard.py && $(PY) scripts/update_docs_metrics.py
+
+dashboard:        ## (re)build the standalone HTML dashboard from committed metrics (no Spark)
+	$(PY) scripts/build_dashboard.py
 
 modules: identity segmentation lookalike propensity ctr campaign results  ## run every module
 

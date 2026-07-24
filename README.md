@@ -78,10 +78,12 @@ This ships as an honest, runnable foundation, not vaporware.
 | **R3 — Propensity, CTR & Bayesian Optimizer** | LR/GBT propensity, hashed CTR at scale, Bayesian A/B + Thompson bandit, results dashboard | **Runnable** — `make propensity ctr campaign results` |
 
 All six modules run end-to-end on synthetic data with ground-truth evaluation.
-See the **[results walkthrough](reports/RESULTS.md)** for the full story with
-one metric per step, and per-module JSON in [`reports/`](reports/). The
-remaining polish items (a customer-360 enrichment join, an interactive Plotly
-version of the dashboard, and a live EMR run) are noted in that doc.
+**Visual dashboard:** [`reports/dashboard.html`](reports/dashboard.html) — a
+self-contained, dependency-free results dashboard generated from the committed
+metrics (`make dashboard`), auto-published to **GitHub Pages** by the `pages`
+workflow. See also the **[results walkthrough](reports/RESULTS.md)** with one
+metric per step, and per-module JSON in [`reports/`](reports/). Remaining polish
+(a customer-360 enrichment join and a live EMR run) is noted in that doc.
 
 ---
 
